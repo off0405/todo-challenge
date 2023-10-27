@@ -4,15 +4,20 @@ import styled, { css } from 'styled-components';
 
 
 
+const TodoContainer = styled.div`
+  display: flex;
+`
 
 const TodoListItemWrapper = styled.div`
   padding: 1rem;
+  background: #1c416b6f;
+  
+  width: 228px;
+  height: 80px;
+  border-radius: 30px;
   display: flex;
   align-items: center;
-  color: #fff;
-  & + & {
-    border-top: 1px solid #dee2e6;
-  }
+  color: #ffffff;
 `
 const CheckBox = styled.div`
   display: flex;
@@ -57,19 +62,21 @@ function TodoListItem(props) {
   const { id, text, checked, onToggle, onRemove } = props;
 
   return (
-    <TodoListItemWrapper>
-      <CheckBox checked={checked} onClick={() => { onToggle(id) }}>
-        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-      </CheckBox>
+    <TodoContainer>
+      <TodoListItemWrapper>
+        <CheckBox checked={checked} onClick={() => { onToggle(id) }}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </CheckBox>
 
 
 
-      <Title checked={checked}>{text}</Title>
+        <Title checked={checked}>{text}</Title>
 
-      <Remove onClick={() => { onRemove(id) }}>
-        <MdRemoveCircleOutline />
-      </Remove>
-    </TodoListItemWrapper>
+        <Remove onClick={() => { onRemove(id) }}>
+          <MdRemoveCircleOutline />
+        </Remove>
+      </TodoListItemWrapper>
+    </TodoContainer>
   );
 }
 

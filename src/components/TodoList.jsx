@@ -3,9 +3,14 @@ import TodoListItem from './TodoListItem';
 import styled from 'styled-components';
 
 const TodoListWrapper = styled.div`
-  min-height: 320px;
-  max-height: 513px;
-  overflow-y: auto; // 넘치면 스크롤
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  overflow-x: auto; // 넘치면 스크롤
 `
 
 
