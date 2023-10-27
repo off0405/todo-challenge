@@ -1,25 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from "styled-components";
+import TodoTemplate from "./components/TodoTemplate";
+import TodoInsert from "./components/TodoInsert";
+import TodoListItem from "./components/TodoListItem";
+import { useEffect, useRef, useState } from "react";
+import TodoList from "./components/TodoList";
+import { v4 as uuidv4 } from "uuid";
+import ToDoEdit from "./components/ToDoEdit";
+
+
+const GlobalStyle = createGlobalStyle`
+
+  /* 글로벌(공통) 스타일 */
+  body {
+    background-image: url("/background.jpg");
+  }
+`;
+
+
 
 function App() {
+
+
+  const [todos, setTodos] = useState([]);
+
+
+  useEffect(() => {
+    const dbTodos = JSON.parse(localStorage.getItem('todos')) || [];
+    setTodos(dbTodos);
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos])
+
+
+
+  const nextId = useRef(4);
+  const handleInsert = (text) => {
+    const todo = {
+      id: uuidv4(),
+      text: text,
+      checked: false
+    }
+    setTodos(todos.concat(todo));
+    nextId.current += 1; //nextId.current = nextId.current + 1;
+
+  }
+
+  const handleToggle = (id) => {
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, checked: !todo.checked } : todo), [todos])
+  }
+
+
+  // 지우기
+  const handleRemove = (id) => { setTodos(todos.filter(todo => todo.id !== id)); }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <TodoTemplate>
+        <TodoInsert onInsert={handleInsert} />
+        <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+
+      </TodoTemplate>
+    </>
   );
 }
 
 export default App;
+
+
+
+
+
