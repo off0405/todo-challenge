@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { MdAdd } from "react-icons/md";
 import styled from 'styled-components';
+import { FcCalendar } from "react-icons/fc";
+import Calendar from "react-calendar";
+
 
 const TodoFormInsertWrapper = styled.form`
   display: flex;
@@ -56,13 +59,12 @@ const StyledButton = styled.button`
 
 
 function TodoInsert({ onInsert }) {
+
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {
     setValue(e.target.value);
   }
-
-
 
   // Submit 제어 함수
   const handleSubmit = (e) => {
@@ -85,8 +87,8 @@ function TodoInsert({ onInsert }) {
         value={value}
         onChange={handleChange}
         type='text'
-        placeholder='your to do list'
-      />
+        placeholder='your to do list'>
+      </StyledInput>
 
       <StyledButton type='submit'>
         <MdAdd />

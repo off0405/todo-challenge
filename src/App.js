@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoInsert from "./components/TodoInsert";
 import TodoListItem from "./components/TodoListItem";
@@ -15,13 +15,36 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Clear = styled.div`
+  color: #fff;
+  margin: 0 auto;
+  width: 100px;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid #fff;
+  border-radius: 50px;
+  padding: 10px;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  transition: 0.3s;
+  
+
+  &:hover {
+    background-color: #aaaec9;
+    border: 1px solid #aaaec9;
+  }
+  
+`
+const ListCount = styled.div`
+  color: #fff;
+  `
 
 
 function App() {
 
 
   const [todos, setTodos] = useState([]);
-
+  const [editTodo, setEditTodo] = useState('');
 
   useEffect(() => {
     const dbTodos = JSON.parse(localStorage.getItem('todos')) || [];
@@ -33,7 +56,12 @@ function App() {
   }, [todos])
 
 
-
+  // Edit
+  const edit = () => {
+    setEditTodo(todos.map((todo) => {
+      todo.id === id ? editTodo : todo
+    }))
+  }
 
   const nextId = useRef(4);
   const handleInsert = (text) => {
@@ -52,19 +80,26 @@ function App() {
   }
 
 
+
   // 지우기
   const handleRemove = (id) => { setTodos(todos.filter(todo => todo.id !== id)); }
+
+  // 전체삭제
+  const clear = (id) => { setTodos(todos.filter(todo => todo.id === id)); }
+  console.log(clear);
 
   return (
     <>
       <GlobalStyle />
-      <TodoTemplate>
+      <TodoTemplate todos={todos}>
         <TodoInsert onInsert={handleInsert} />
         <TodoList
           todos={todos}
           onRemove={handleRemove}
           onToggle={handleToggle}
         />
+        <Clear onClick={clear}>CLEAR</Clear>
+
       </TodoTemplate>
     </>
   );
