@@ -1,5 +1,10 @@
 import React from 'react';
-import { MdCheckBox, MdCheckBoxOutlineBlank, MdRemoveCircleOutline } from 'react-icons/md';
+import {
+  MdCheckBoxOutlineBlank,
+  MdRemoveCircleOutline,
+  MdCheckBox,
+  MdModeEditOutline,
+} from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
 
@@ -29,6 +34,8 @@ const CheckBox = styled.div`
     color: ${props => props.checked && '#3d666d'};
   }
   `
+
+
 
 const Title = styled.div`
   margin-left: 0.5rem;
@@ -61,18 +68,16 @@ const Remove = styled.div`
 function TodoListItem(props) {
   const { id, text, checked, onToggle, onRemove } = props;
 
+
+
   return (
     <TodoContainer>
       <TodoListItemWrapper>
         <CheckBox checked={checked} onClick={() => { onToggle(id) }}>
           {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </CheckBox>
-
-
-
-        <Title checked={checked}>{text}</Title>
-
-        <Remove onClick={() => { onRemove(id) }}>
+        <Title checked={checked} onClick={() => { }}>{text}</Title>
+        <Remove onClick={() => { onRemove(id); }}>
           <MdRemoveCircleOutline />
         </Remove>
       </TodoListItemWrapper>

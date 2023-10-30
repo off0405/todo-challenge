@@ -5,7 +5,6 @@ import TodoListItem from "./components/TodoListItem";
 import { useEffect, useRef, useState } from "react";
 import TodoList from "./components/TodoList";
 import { v4 as uuidv4 } from "uuid";
-import ToDoEdit from "./components/ToDoEdit";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -35,6 +34,7 @@ function App() {
 
 
 
+
   const nextId = useRef(4);
   const handleInsert = (text) => {
     const todo = {
@@ -60,8 +60,11 @@ function App() {
       <GlobalStyle />
       <TodoTemplate>
         <TodoInsert onInsert={handleInsert} />
-        <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
-
+        <TodoList
+          todos={todos}
+          onRemove={handleRemove}
+          onToggle={handleToggle}
+        />
       </TodoTemplate>
     </>
   );
