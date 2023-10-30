@@ -69,7 +69,7 @@ const Edit = styled.div`
 
 
 function TodoListItem(props) {
-  const { id, text, checked, onToggle, onRemove } = props;
+  const { id, text, checked, onToggle, onRemove, editChange, handleEdit } = props;
 
 
 
@@ -80,7 +80,7 @@ function TodoListItem(props) {
           {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </CheckBox>
         <Title checked={checked} >{text}</Title>
-        <Edit>
+        <Edit onClick={() => { handleEdit(id) }}>
           <MdModeEditOutline />
         </Edit>
         <Remove onClick={() => { onRemove(id); }}>
@@ -92,3 +92,4 @@ function TodoListItem(props) {
 }
 
 export default TodoListItem;
+

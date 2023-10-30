@@ -35,16 +35,13 @@ const Clear = styled.div`
   }
   
 `
-const ListCount = styled.div`
-  color: #fff;
-  `
+
 
 
 function App() {
 
 
   const [todos, setTodos] = useState([]);
-  const [editTodo, setEditTodo] = useState('');
 
   useEffect(() => {
     const dbTodos = JSON.parse(localStorage.getItem('todos')) || [];
@@ -57,10 +54,16 @@ function App() {
 
 
   // Edit
-  const edit = () => {
-    setEditTodo(todos.map((todo) => {
-      todo.id === id ? editTodo : todo
-    }))
+  const [editTodo, setEditTodo] = useState({});
+  const handleChange = (e) => {
+    setEditTodo({
+      ...editTodo,
+      text: e.target.value
+    })
+  }
+
+  const handleEdit = () => {
+    setTodos(todos.map((todo) => todo.id === editTodo.id ? editTodo : todo));
   }
 
   const nextId = useRef(4);
@@ -97,6 +100,9 @@ function App() {
           todos={todos}
           onRemove={handleRemove}
           onToggle={handleToggle}
+          editChange={handleChange}
+          handleEdit={handleEdit}
+
         />
         <Clear onClick={clear}>CLEAR</Clear>
 
