@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdCalendarToday } from "react-icons/md";
 import styled from 'styled-components';
 import { FcCalendar } from "react-icons/fc";
 import Calendar from "react-calendar";
+import CustomDate from './CustomeDate';
 
 
 const TodoFormInsertWrapper = styled.form`
@@ -56,6 +57,21 @@ const StyledButton = styled.button`
 
 `;
 
+const CustomCalendar = styled.div`
+  border: none;
+  border-radius: 0  20px 20px 0 ;
+  background: none;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    color: #5a5c5e;
+  }
+`;
 
 
 function TodoInsert({ onInsert }) {
@@ -79,6 +95,7 @@ function TodoInsert({ onInsert }) {
 
   }
 
+  const [onCalendar, setOnCalendar] = useState(false);
 
 
   return (
@@ -89,8 +106,10 @@ function TodoInsert({ onInsert }) {
         type='text'
         placeholder='your to do list'>
       </StyledInput>
-
-      <StyledButton type='submit'>
+      <CustomCalendar>
+        <MdCalendarToday />
+      </CustomCalendar>
+      <StyledButton type='submit' onClick={() => { setOnCalendar(true) }}>
         <MdAdd />
       </StyledButton>
 

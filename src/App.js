@@ -5,6 +5,8 @@ import TodoListItem from "./components/TodoListItem";
 import { useEffect, useRef, useState } from "react";
 import TodoList from "./components/TodoList";
 import { v4 as uuidv4 } from "uuid";
+import CustomDate from "./components/CustomeDate";
+
 
 
 const GlobalStyle = createGlobalStyle`
@@ -33,14 +35,15 @@ const Clear = styled.div`
     background-color: #aaaec9;
     border: 1px solid #aaaec9;
   }
-  
+`
+
+const InputClass = styled.input`
+  color: #fff;
 `
 
 
 
 function App() {
-
-
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -53,18 +56,14 @@ function App() {
   }, [todos])
 
 
+
   // Edit
-  const [editTodo, setEditTodo] = useState({});
-  const handleChange = (e) => {
-    setEditTodo({
-      ...editTodo,
-      text: e.target.value
-    })
+  const handleFixValue = (id, fixText) => {  // 수정기능
+    setTodos(todos.map((aaa => {
+      return aaa.id === id ? { ...aaa, text: fixText } : aaa
+    })))
   }
 
-  const handleEdit = () => {
-    setTodos(todos.map((todo) => todo.id === editTodo.id ? editTodo : todo));
-  }
 
   const nextId = useRef(4);
   const handleInsert = (text) => {
@@ -75,7 +74,6 @@ function App() {
     }
     setTodos(todos.concat(todo));
     nextId.current += 1; //nextId.current = nextId.current + 1;
-
   }
 
   const handleToggle = (id) => {
@@ -94,19 +92,18 @@ function App() {
   return (
     <>
       <GlobalStyle />
+
       <TodoTemplate todos={todos}>
         <TodoInsert onInsert={handleInsert} />
         <TodoList
           todos={todos}
           onRemove={handleRemove}
           onToggle={handleToggle}
-          editChange={handleChange}
-          handleEdit={handleEdit}
-
+          handleFixValue={handleFixValue}
         />
         <Clear onClick={clear}>CLEAR</Clear>
-
       </TodoTemplate>
+      <CustomDate />
     </>
   );
 }

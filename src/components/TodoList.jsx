@@ -17,7 +17,7 @@ const TodoListWrapper = styled.div`
 
 function TodoList(props) {
   console.log(props);
-  const { id, todos, onToggle, onRemove, editChange, handleEdit } = props;
+  const { id, todos, onToggle, onRemove, handleFixValue } = props;
   return (
     <TodoListWrapper>
       {todos.map((todo) => {
@@ -27,8 +27,8 @@ function TodoList(props) {
           checked={todo.checked}
           onToggle={onToggle}
           onRemove={onRemove}
-          editChange={editChange}
-          handleEdit={handleEdit} />
+          handleFixValue={handleFixValue}
+        />
       })}
     </TodoListWrapper>
   );
