@@ -5,7 +5,6 @@ import TodoListItem from "./components/TodoListItem";
 import { useEffect, useRef, useState } from "react";
 import TodoList from "./components/TodoList";
 import { v4 as uuidv4 } from "uuid";
-import CustomDate from "./components/CustomeDate";
 
 
 
@@ -103,7 +102,6 @@ function App() {
         />
         <Clear onClick={clear}>CLEAR</Clear>
       </TodoTemplate>
-      <CustomDate />
     </>
   );
 }

@@ -3,7 +3,6 @@ import { MdAdd, MdCalendarToday } from "react-icons/md";
 import styled from 'styled-components';
 import { FcCalendar } from "react-icons/fc";
 import Calendar from "react-calendar";
-import CustomDate from './CustomeDate';
 
 
 const TodoFormInsertWrapper = styled.form`
